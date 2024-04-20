@@ -38,8 +38,11 @@ export const getFeaturedEvents = () => {
 export function getAllEvents() {
   return DUMMY_EVENTS
 }
-
-export function getFilteredEvents(dateFilter) {
+type FilteredEvents = {
+  month: number
+  year: number
+}
+export function getFilteredEvents(dateFilter: FilteredEvents) {
   const { month, year } = dateFilter
 
   return DUMMY_EVENTS.filter(event => {
