@@ -1,8 +1,9 @@
-import { FormEvent, MutableRefObject, useRef } from 'react'
+import { FormEvent, useRef } from 'react'
 
 import { Button } from '@/button'
 
 import s from '../style/events-search.module.scss'
+
 type EventsSearchProps = {
   onSearch: (selectedYear: string, selectedMonth: string) => void
 }
