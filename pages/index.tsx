@@ -1,4 +1,5 @@
 import { EventList } from '@/events'
+import { getLayout } from '@/layout/main-header'
 import { getFeaturedEvents } from 'dummy-data'
 
 const Home = () => {
@@ -11,4 +12,5 @@ const Home = () => {
   )
 }
 
+Home.getLayout = getLayout
 export default Home
