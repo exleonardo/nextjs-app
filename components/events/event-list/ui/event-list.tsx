@@ -1,18 +1,8 @@
 import { EventItem } from '@/events'
+import { EventListType } from 'helpers/api-util'
 
 import s from '../style/event-list.module.scss'
-type EventListType = {
-  items: ItemType[]
-}
-export type ItemType = {
-  date: string
-  description: string
-  id: string
-  image: string
-  isFeatured: boolean
-  location: string
-  title: string
-}
+
 export const EventList = ({ items }: EventListType) => {
   return (
     <ul className={s.list}>
