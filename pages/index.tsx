@@ -1,6 +1,6 @@
-import { EventList, ItemType } from '@/events'
+import { EventList } from '@/events'
 import { getLayout } from '@/layout/main-header'
-import { getFeaturedEvents } from 'helpers/api-util'
+import { ItemType, getFeaturedEvents } from 'helpers/api-util'
 import { GetStaticProps } from 'next'
 
 type HomeType = {
