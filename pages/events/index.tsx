@@ -1,12 +1,25 @@
 import { EventList } from '@/events'
 import { EventsSearch } from '@/events/events-search'
 import { getLayout } from '@/layout/main-header'
-import { getAllEvents } from 'dummy-data'
+import { ItemType, getAllEvents } from 'helpers/api-util'
+import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
+export const getStaticProps: GetStaticProps = async () => {
+  const events = await getAllEvents()
 
-const AllEventsPage = () => {
+  return {
+    props: {
+      events,
+    },
+    revalidate: 60,
+  }
+}
+type AllEventsPageProps = {
+  events: ItemType[]
+}
+const AllEventsPage = ({ events }: AllEventsPageProps) => {
   const router = useRouter()
-  const events = getAllEvents()
+
   const findEventsHandler = (year: string, month: string) => {
     const fullPath = `/events/${year}/${month}`
 
