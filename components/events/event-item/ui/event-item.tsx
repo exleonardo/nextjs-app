@@ -1,9 +1,9 @@
 import { Button } from '@/button'
-import { ItemType } from '@/events'
 import AddressIcon from '@/icons/address-icon'
 import ArrowRightIcon from '@/icons/arrow-right-icon'
 import DateIcon from '@/icons/date-icon'
-import Link from 'next/link'
+import { ItemType } from 'helpers/api-util'
+import Image from 'next/image'
 
 import s from '../style/event-item.module.scss'
 
@@ -18,7 +18,7 @@ export const EventItem = ({ date, id, image, location, title }: ItemType) => {
 
   return (
     <li className={s.item}>
-      <img alt={title} src={'/' + image} />
+      <Image alt={title} height={160} src={'/' + image} width={250} />
       <div className={s.content}>
         <div className={s.summary}>
           <h2>{title}</h2>
