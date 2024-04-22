@@ -2,6 +2,7 @@ import { EventList, ItemType } from '@/events'
 import { getLayout } from '@/layout/main-header'
 import { getFeaturedEvents } from 'helpers/api-util'
 import { GetStaticProps } from 'next'
+
 type HomeType = {
   events: ItemType[]
 }
@@ -13,13 +14,14 @@ const Home = ({ events }: HomeType) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps: GetStaticProps = async () => {
   const featuredEvents = await getFeaturedEvents()
 
   return {
     props: {
       events: featuredEvents,
     },
+    revalidate: 30,
   }
 }
 Home.getLayout = getLayout
