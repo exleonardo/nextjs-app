@@ -3,6 +3,7 @@ import { EventsSearch } from '@/events/events-search'
 import { getLayout } from '@/layout/main-header'
 import { ItemType, getAllEvents } from 'helpers/api-util'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 export const getStaticProps: GetStaticProps = async () => {
   const events = await getAllEvents()
@@ -28,6 +29,13 @@ const AllEventsPage = ({ events }: AllEventsPageProps) => {
 
   return (
     <>
+      <Head>
+        <title> Next js Events</title>
+        <meta
+          content={'Find a lot of great events that allow you to evolve..'}
+          name={'description'}
+        />
+      </Head>
       <EventsSearch onSearch={findEventsHandler} />
       <EventList items={events} />
     </>
