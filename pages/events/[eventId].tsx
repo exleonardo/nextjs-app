@@ -2,7 +2,7 @@ import { ErrorAlert } from '@/error-alert'
 import { EventContent, EventLogistics, EventSummary } from '@/event-detail'
 import { ItemType } from '@/events'
 import { getLayout } from '@/layout/main-header'
-import { getAllEvents, getEventById, getFeaturedEvents } from 'helpers/api-util'
+import { getEventById, getFeaturedEvents } from 'helpers/api-util'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 type EventDetailPageProps = {
