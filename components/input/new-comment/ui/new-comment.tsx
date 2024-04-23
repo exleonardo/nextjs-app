@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 
 import { CommenstDataType } from '@/input'
 
@@ -13,7 +13,7 @@ export const NewComment = ({ onAddComment }: NewCommentProps) => {
   const nameInputRef = useRef<HTMLInputElement>()
   const commentInputRef = useRef<HTMLTextAreaElement>()
 
-  function sendCommentHandler(event) {
+  const sendCommentHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const enteredEmail = emailInputRef.current.value
@@ -42,7 +42,7 @@ export const NewComment = ({ onAddComment }: NewCommentProps) => {
   }
 
   return (
-    <form className={s.form}>
+    <form className={s.form} onSubmit={sendCommentHandler}>
       <div className={s.row}>
         <div className={s.control}>
           <label htmlFor={'email'}>Your email</label>
