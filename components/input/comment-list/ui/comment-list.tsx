@@ -1,21 +1,20 @@
-import s from '../style/comment-list.module.scss'
+import { CommenstData } from '@/input'
 
-export const CommentList = () => {
+import s from '../style/comment-list.module.scss'
+type CommentsListProps = {
+  items: CommenstData[]
+}
+export const CommentList = ({ items }: CommentsListProps) => {
   return (
     <ul className={s.comments}>
-      {/* Render list of comments - fetched from API */}
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
+      {items.map(item => (
+        <li key={item._id.toString()}>
+          <p>{item.text}</p>
+          <div>
+            By <address>{item.name}</address>
+          </div>
+        </li>
+      ))}
     </ul>
   )
 }
