@@ -1,12 +1,21 @@
+import { FormEvent, useRef } from 'react'
+
 import s from '../style/newsletter-registration.module.scss'
 
 export const NewsletterRegistration = () => {
-  function registrationHandler(event) {
-    event.preventDefault()
+  const emailInputRef = useRef<HTMLInputElement>(null)
 
-    // fetch user input (state or refs)
-    // optional: validate input
-    // send valid data to API
+  const registrationHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const enteredEmail = emailInputRef.current.value
+
+    fetch('/api/newsletter', {
+      body: JSON.stringify({ email: enteredEmail }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    }).then(response => response.json())
   }
 
   return (
@@ -14,7 +23,13 @@ export const NewsletterRegistration = () => {
       <h2>Sign up to stay updated!</h2>
       <form onSubmit={registrationHandler}>
         <div className={s.control}>
-          <input aria-label={'Your email'} id={'email'} placeholder={'Your email'} type={'email'} />
+          <input
+            aria-label={'Your email'}
+            id={'email'}
+            placeholder={'Your email'}
+            ref={emailInputRef}
+            type={'email'}
+          />
           <button>Register</button>
         </div>
       </form>
