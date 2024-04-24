@@ -31,7 +31,7 @@ export const useNewsletterRegistration = () => {
           throw new Error(data.message)
         })
       })
-      .then(data => {
+      .then(() => {
         showNotification({
           message: 'Successfully registered for newsletter!',
           status: 'success',

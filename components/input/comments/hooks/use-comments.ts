@@ -52,7 +52,7 @@ export const useComments = (eventId: string) => {
           throw new Error(data.message)
         })
       })
-      .then(data => {
+      .then(() => {
         showNotification({
           message: 'Your comment was saved!',
           status: 'success',
