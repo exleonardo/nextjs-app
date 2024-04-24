@@ -5,6 +5,7 @@ import { ErrorAlert } from '@/error-alert'
 import { EventList } from '@/events'
 import { ResultsTitle } from '@/events/results-title'
 import { getLayout } from '@/layout/main-header'
+import { Loader } from '@/loader'
 import { ItemType } from 'helpers/api-util'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -41,7 +42,7 @@ const FilterdEventsPage = () => {
     return (
       <>
         {pageHeadData}
-        <p className={'center'}>loading</p>
+        <Loader style={{ marginTop: '20px' }} />
       </>
     )
   }

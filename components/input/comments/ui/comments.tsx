@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-
 import { CommentList, NewComment } from '@/input'
+import { useComments } from '@/input/comments/hooks/use-comments'
+import { Loader } from '@/loader'
 import { ObjectId } from 'mongodb'
 
 import s from '../style/comments.module.scss'
@@ -21,40 +21,15 @@ export type CommenstData = {
   text: string
 }
 export const Comments = ({ eventId }: CommentsProps) => {
-  const [showComments, setShowComments] = useState(false)
-  const [comments, setComments] = useState<CommenstData[]>([])
-
-  useEffect(() => {
-    if (showComments) {
-      fetch(`/api/comments/${eventId}`)
-        .then(response => response.json())
-        .then(data => {
-          setComments(data.comments)
-        })
-    }
-  }, [showComments, comments])
-
-  const toggleCommentsHandler = () => {
-    setShowComments(prevStatus => !prevStatus)
-  }
-
-  const addCommentHandler = (commentData: CommenstDataType) => {
-    fetch(`/api/comments/${eventId}`, {
-      body: JSON.stringify(commentData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-  }
+  const { addCommentHandler, comments, isFetchingComments, showComments, toggleCommentsHandler } =
+    useComments(eventId)
 
   return (
     <section className={s.comments}>
       <button onClick={toggleCommentsHandler}>{showComments ? 'Hide' : 'Show'} Comments</button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList items={comments} />}
+      {showComments && !isFetchingComments && <CommentList items={comments} />}
+      {showComments && isFetchingComments && <Loader />}
     </section>
   )
 }
