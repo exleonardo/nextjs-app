@@ -1,45 +1,14 @@
-import { FormEvent, useRef, useState } from 'react'
-
 import { CommenstDataType } from '@/input'
+import { useNewComment } from '@/input/new-comment/hooks/use-new-comment'
 
 import s from '../style/new-comment.module.scss'
+
 type NewCommentProps = {
   onAddComment: (value: CommenstDataType) => void
 }
 export const NewComment = ({ onAddComment }: NewCommentProps) => {
-  const [isInvalid, setIsInvalid] = useState(false)
-
-  const emailInputRef = useRef<HTMLInputElement>()
-  const nameInputRef = useRef<HTMLInputElement>()
-  const commentInputRef = useRef<HTMLTextAreaElement>()
-
-  const sendCommentHandler = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    const enteredEmail = emailInputRef.current.value
-    const enteredName = nameInputRef.current.value
-    const enteredComment = commentInputRef.current.value
-
-    if (
-      !enteredEmail ||
-      enteredEmail.trim() === '' ||
-      !enteredEmail.includes('@') ||
-      !enteredName ||
-      enteredName.trim() === '' ||
-      !enteredComment ||
-      enteredComment.trim() === ''
-    ) {
-      setIsInvalid(true)
-
-      return
-    }
-
-    onAddComment({
-      email: enteredEmail,
-      name: enteredName,
-      text: enteredComment,
-    })
-  }
+  const { commentInputRef, emailInputRef, isInvalid, nameInputRef, sendCommentHandler } =
+    useNewComment(onAddComment)
 
   return (
     <form className={s.form} onSubmit={sendCommentHandler}>
@@ -57,7 +26,7 @@ export const NewComment = ({ onAddComment }: NewCommentProps) => {
         <label htmlFor={'comment'}>Your comment</label>
         <textarea id={'comment'} ref={commentInputRef} rows={5}></textarea>
       </div>
-      {isInvalid && <p>Please enter a valid email address and comment!</p>}
+      {isInvalid && <p className={s.error}>Please enter a valid email address and comment!</p>}
       <button>Submit</button>
     </form>
   )
