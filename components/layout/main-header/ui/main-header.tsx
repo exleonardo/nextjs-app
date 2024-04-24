@@ -3,6 +3,7 @@ import { PropsWithChildren, ReactElement } from 'react'
 import { Layout } from '@/layout/layout'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { NotificationContextProvider } from 'store/notification-context'
 
 import s from '../style/main-header.module.scss'
 export const MainHeader = () => {
@@ -27,5 +28,9 @@ export const BaseLayout: NextPage<PropsWithChildren> = ({ children }) => {
 }
 
 export const getLayout = (page: ReactElement) => {
-  return <BaseLayout>{page}</BaseLayout>
+  return (
+    <NotificationContextProvider>
+      <BaseLayout>{page}</BaseLayout>
+    </NotificationContextProvider>
+  )
 }
